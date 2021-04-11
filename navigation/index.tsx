@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootStackParamList } from './types';
 
-import { HomeIcon, QRIcon } from '../components/Icons';
+import { HomeIcon, QRIcon, MenuIcon } from '../components/Icons';
 
 // Screens
 import Home from '../screens/Home';
@@ -28,7 +28,15 @@ const Navigation: React.FC = (): JSX.Element => {
             tabBarIcon: ({ focused }) => <HomeIcon isFocused={focused} />,
           }}
         />
-        {VisibleMenu && <Screen name={Screens.menu} component={Menu} />}
+        {VisibleMenu && (
+          <Screen
+            name={Screens.menu}
+            component={Menu}
+            options={{
+              tabBarIcon: ({ focused }) => <MenuIcon isFocused={focused} />,
+            }}
+          />
+        )}
         <Screen
           name={Screens.ScanQR}
           component={ScanQR}
