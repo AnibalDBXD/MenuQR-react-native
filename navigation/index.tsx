@@ -28,7 +28,7 @@ const Navigation: React.FC = (): JSX.Element => {
             tabBarIcon: ({ focused }) => <HomeIcon isFocused={focused} />,
           }}
         />
-        {VisibleMenu && (
+        {!VisibleMenu && (
           <Screen
             name={Screens.menu}
             component={Menu}

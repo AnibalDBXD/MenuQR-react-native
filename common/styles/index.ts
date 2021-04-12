@@ -1,8 +1,12 @@
 export enum Sizes {
   small = 12,
   medium = 24,
-  big = 32,
+  large = 32,
 }
+
+// export enum Fonts {
+
+// }
 
 export enum Colors {
   DodgerBlue = '#2196F3',

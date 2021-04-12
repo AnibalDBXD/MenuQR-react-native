@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, Button, View } from 'react-native';
+import { Button, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Text from '../../components/Text';
 import Screens from '../../navigation/constants';
 import { HomeProps } from './types';
 
@@ -7,10 +9,12 @@ const Home: React.FC<HomeProps> = ({
   navigation: { navigate },
 }): JSX.Element => {
   return (
-    <View>
-      <Text>Home11</Text>
-      <Button title="Pres" onPress={() => navigate(Screens.menu)} />
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text>Home11</Text>
+        <Button title="Pres" onPress={() => navigate(Screens.menu)} />
+      </View>
+    </SafeAreaView>
   );
 };
 
