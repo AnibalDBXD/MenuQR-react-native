@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Button, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Text from '../../components/Text';
 import Screens from '../../navigation/constants';
 import { HomeProps } from './types';
 
