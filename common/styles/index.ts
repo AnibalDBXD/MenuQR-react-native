@@ -4,6 +4,8 @@ export enum Sizes {
   large = 32,
 }
 
+export type FontFamily = 'Roboto-Bold' | 'Roboto-Italic' | 'Roboto';
+
 export enum Colors {
   DodgerBlue = '#2196F3',
   Black = '#000000',
