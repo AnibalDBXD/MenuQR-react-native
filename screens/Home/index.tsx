@@ -10,7 +10,7 @@ const Home: React.FC<HomeProps> = ({
   return (
     <SafeAreaView>
       <View>
-        <Text>Home11</Text>
+        <Text>Home</Text>
         <Button title="Pres" onPress={() => navigate(Screens.menu)} />
       </View>
     </SafeAreaView>
