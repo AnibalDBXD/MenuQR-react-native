@@ -1,7 +1,7 @@
-enum Screens {
+enum SCREENS {
   home = 'Home',
   menu = 'Menu',
   ScanQR = 'ScanQR',
 }
 
-export default Screens;
+export default SCREENS;

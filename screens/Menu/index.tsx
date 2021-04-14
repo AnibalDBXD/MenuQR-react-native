@@ -4,6 +4,8 @@ import { Text, ScrollView, View } from 'react-native';
 import { IMenu, MenuProps } from './types';
 import Category from './Category';
 import styles from './styles';
+import { getMenu } from '../../api';
+import { IFetchReadResponse } from '../../api/type';
 
 // ACA VOY HACER UN COMPONEMTE QUE TE DIGA COSAS QUE AGREGES UN MENU PERO MIENTRAS ESTO
 const MenuNotFound: IMenu = {
@@ -27,21 +29,42 @@ const MenuNotFound: IMenu = {
 const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
   const { container, containerTitle, CaterogiesContainer } = styles;
 
-  const [{ Categories, MenuName }, setData] = useState<IMenu>(MenuNotFound);
+  const [ID, setID] = useState('');
+  const [Data, setData] = useState<IFetchReadResponse>();
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (params?.data !== undefined) {
-      setData(JSON.parse(params?.data));
+      setID(params.data);
     }
   }, [params]);
+
+  useEffect(() => {
+    setLoading(true);
+    getMenu(ID)
+      .then(data => setData(data))
+      .then(() => setLoading(false));
+  }, [ID]);
+
+  if (Loading) {
+    return <Text>Loading</Text>;
+  }
+
+  if (Data?.error) {
+    return <Text>{Data.error}</Text>;
+  }
+
+  if (Data?.record === undefined) {
+    return <Text>NOHAY</Text>;
+  }
 
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={container}>
-          <Text style={containerTitle}>{MenuName}</Text>
+          <Text style={containerTitle}>{Data.record.MenuName}</Text>
           <View style={CaterogiesContainer}>
-            {Categories.map(({ CategoryName, products, id }) => (
+            {Data.record.Categories.map(({ CategoryName, products, id }) => (
               <Category
                 CategoryName={CategoryName}
                 products={products}

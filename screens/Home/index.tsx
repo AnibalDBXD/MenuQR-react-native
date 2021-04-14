@@ -1,17 +1,15 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Screens from '../../navigation/constants';
+import QR from 'react-native-qrcode-svg';
 import { HomeProps } from './types';
 
-const Home: React.FC<HomeProps> = ({
-  navigation: { navigate },
-}): JSX.Element => {
+const Home: React.FC<HomeProps> = (): JSX.Element => {
   return (
     <SafeAreaView>
       <View>
         <Text>Home</Text>
-        <Button title="Pres" onPress={() => navigate(Screens.menu)} />
+        <QR value="6075d4d45b165e19f61f528c" size={280} ecl="L" />
       </View>
     </SafeAreaView>
   );

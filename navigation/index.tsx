@@ -10,29 +10,29 @@ import Home from '../screens/Home';
 import Menu from '../screens/Menu';
 import ScanQR from '../screens/ScanQR';
 
-import Screens from './constants';
+import SCREENS from './constants';
 
 const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>();
 
 const Navigation: React.FC = (): JSX.Element => (
   <NavigationContainer>
-    <Navigator initialRouteName={Screens.home}>
+    <Navigator initialRouteName={SCREENS.home}>
       <Screen
-        name={Screens.home}
+        name={SCREENS.home}
         component={Home}
         options={{
           tabBarIcon: ({ focused }) => <HomeIcon isFocused={focused} />,
         }}
       />
       <Screen
-        name={Screens.menu}
+        name={SCREENS.menu}
         component={Menu}
         options={{
           tabBarIcon: ({ focused }) => <MenuIcon isFocused={focused} />,
         }}
       />
       <Screen
-        name={Screens.ScanQR}
+        name={SCREENS.ScanQR}
         component={ScanQR}
         options={{
           tabBarIcon: ({ focused }) => <QRIcon isFocused={focused} />,
