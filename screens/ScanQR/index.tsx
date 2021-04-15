@@ -1,5 +1,6 @@
 import React from 'react';
-import QRScaner from '../../components/QRScanner';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import QRScaner from './QRScanner';
 import { QRProps } from './types';
 import SCREENS from '../../navigation/constants';
 
@@ -9,7 +10,11 @@ const ScanQR: React.FC<QRProps> = ({
   const handleScanned = (data: string) => {
     navigate(SCREENS.menu, { data });
   };
-  return <QRScaner handleScanned={handleScanned} />;
+  return (
+    <SafeAreaView>
+      <QRScaner handleScanned={handleScanned} />
+    </SafeAreaView>
+  );
 };
 
 export default ScanQR;

@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-const windowHeight = Dimensions.get('window').height;
+export const windowHeight = Dimensions.get('window').height;
+export const windowWidth = Dimensions.get('window').width;
 
 export enum Sizes {
   small = 12,

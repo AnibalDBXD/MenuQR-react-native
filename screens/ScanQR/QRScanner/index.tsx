@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
 import { IQRScanner } from './types';
+import styles from './styles';
 
 const QRScanner: React.FC<IQRScanner> = ({ handleScanned }): JSX.Element => {
+  const { scanner, frame } = styles;
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -25,10 +27,9 @@ const QRScanner: React.FC<IQRScanner> = ({ handleScanned }): JSX.Element => {
   }
 
   return (
-    <BarCodeScanner
-      onBarCodeScanned={handleBarCodeScanned}
-      style={StyleSheet.absoluteFillObject}
-    />
+    <BarCodeScanner onBarCodeScanned={handleBarCodeScanned} style={scanner}>
+      <View style={frame} />
+    </BarCodeScanner>
   );
 };
 

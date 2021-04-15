@@ -15,8 +15,10 @@ const NoMenu: React.FC = (): JSX.Element => {
         size={128}
         color={Colors.Black}
       />
-      <Text style={MiddleText}>No scanned QR.</Text>
-      <Text style={BottomText}>Try Scan a Menu&apos;s QR.</Text>
+      <Text style={MiddleText}>
+        You don&apos;t have any QR code scanned yet.
+      </Text>
+      <Text style={BottomText}>Try scanning a Menu&apos;s QR code</Text>
     </View>
   );
 };
