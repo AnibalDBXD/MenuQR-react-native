@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import SCREENS from '../../navigation/constants';
 import { RootStackParamList } from '../../navigation/types';
-import { ICategory } from './Category/types';
+import { ICategory } from './Menu/Category/types';
 
 export type MenuParams = { data: string } | undefined;
 

@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { Sizes } from '../../common/styles';
 
 const styles = StyleSheet.create({
   container: {
-    margin: Sizes.small,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  errorIcon: {
+    marginBottom: 60,
   },
 });
 

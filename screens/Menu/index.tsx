@@ -1,80 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, ScrollView, View } from 'react-native';
-import { IMenu, MenuProps } from './types';
-import Category from './Category';
+import { ScrollView, View } from 'react-native';
+import { MenuProps } from './types';
 import styles from './styles';
+
+import Error from './Error';
+import LoadingComponent from './Loading';
+import MenuComponent from './Menu';
+import NoMenu from './NoMenu';
+
 import { getMenu } from '../../api';
 import { IFetchReadResponse } from '../../api/type';
 
-// ACA VOY HACER UN COMPONEMTE QUE TE DIGA COSAS QUE AGREGES UN MENU PERO MIENTRAS ESTO
-const MenuNotFound: IMenu = {
-  MenuName: 'Menu Found',
-  Categories: [
-    {
-      CategoryName: 'Categoria 1',
-      products: [
-        {
-          ProductName: 'Producto 1',
-          price: '300 d',
-          id: 'adas3',
-        },
-      ],
-      id: 'estacosaid1',
-    },
-  ],
-  id: 'menuID1',
-};
-
 const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
-  const { container, containerTitle, CaterogiesContainer } = styles;
+  const { container } = styles;
 
-  const [ID, setID] = useState('');
   const [Data, setData] = useState<IFetchReadResponse>();
-  const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (params?.data !== undefined) {
-      setID(params.data);
+    if (params?.data) {
+      setLoading(true);
+      getMenu(params.data)
+        .then(data => setData(data))
+        .then(() => setLoading(false));
     }
   }, [params]);
 
-  useEffect(() => {
-    setLoading(true);
-    getMenu(ID)
-      .then(data => setData(data))
-      .then(() => setLoading(false));
-  }, [ID]);
+  const ComponentView: React.FC = ({ children }): JSX.Element => (
+    <SafeAreaView>
+      <ScrollView>
+        <View style={container}>{children}</View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 
   if (Loading) {
-    return <Text>Loading</Text>;
+    return (
+      <ComponentView>
+        <LoadingComponent />
+      </ComponentView>
+    );
+  }
+
+  if (Data?.record) {
+    return (
+      <ComponentView>
+        <MenuComponent
+          MenuName={Data?.record.MenuName}
+          Categories={Data?.record.Categories}
+        />
+      </ComponentView>
+    );
   }
 
   if (Data?.error) {
-    return <Text>{Data.error}</Text>;
-  }
-
-  if (Data?.record === undefined) {
-    return <Text>NOHAY</Text>;
+    return (
+      <ComponentView>
+        <Error
+          errorMessage={Data?.error || Data?.message || 'Error not found D:'}
+        />
+      </ComponentView>
+    );
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={container}>
-          <Text style={containerTitle}>{Data.record.MenuName}</Text>
-          <View style={CaterogiesContainer}>
-            {Data.record.Categories.map(({ CategoryName, products, id }) => (
-              <Category
-                CategoryName={CategoryName}
-                products={products}
-                key={id}
-              />
-            ))}
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ComponentView>
+      <NoMenu />
+    </ComponentView>
   );
 };
 

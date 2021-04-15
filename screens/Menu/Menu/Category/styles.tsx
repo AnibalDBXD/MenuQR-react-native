@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Sizes, Colors, FontFamily } from '../../../common/styles';
+import { Sizes, Colors, FontFamily } from '../../../../common/styles';
 
 const styles = StyleSheet.create({
   categoryContainer: {

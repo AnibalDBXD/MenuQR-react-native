@@ -10,6 +10,7 @@ export interface IFetchParams {
 export interface IFetchResponse {
   record?: IMenu;
   error?: string;
+  message?: string;
 }
 
 export interface IFetchCreateResponse extends IFetchResponse {

@@ -1,3 +1,7 @@
+import { Dimensions, StyleSheet } from 'react-native';
+
+const windowHeight = Dimensions.get('window').height;
+
 export enum Sizes {
   small = 12,
   mediumSmall = 18,
@@ -12,8 +16,19 @@ export enum FontFamily {
   RobotoBoldItalic = 'Roboto-BoldItalic',
 }
 
+// The name of the colors come from https://chir.ag/projects/name-that-color/
+
 export enum Colors {
   DodgerBlue = '#2196F3',
   Black = '#000000',
   White = '#FFFFFF',
+  Punch = '#D72828',
 }
+
+export const Center = StyleSheet.create({
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: windowHeight - 128,
+  },
+});
