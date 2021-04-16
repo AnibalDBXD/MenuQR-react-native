@@ -1,16 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import QR from 'react-native-qrcode-svg';
 import { HomeProps } from './types';
+import styles from './styles';
+import MenuList from './MenuList';
 
 const Home: React.FC<HomeProps> = (): JSX.Element => {
+  const { Header, HeaderText } = styles;
   return (
     <SafeAreaView>
-      <View>
-        <Text>Home</Text>
-        <QR value="6075d4d45b165e19f61f528c" size={280} ecl="L" />
+      <View style={Header}>
+        <Text style={HeaderText}>Welcome to MenuQR</Text>
       </View>
+      <MenuList />
     </SafeAreaView>
   );
 };

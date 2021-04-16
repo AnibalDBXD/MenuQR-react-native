@@ -33,3 +33,8 @@ export const Center = StyleSheet.create({
     height: windowHeight - 128,
   },
 });
+
+export const QRSize = 150;
+
+export const MenuLabelWidth = 160;
+export const MenuLabelWidthPlusMargin = MenuLabelWidth + Sizes.small;
