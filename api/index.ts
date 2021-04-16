@@ -1,11 +1,12 @@
 import { IMenu } from '../screens/Menu/types';
+
 import {
   IFetchCreateResponse,
   IFetchParams,
   IFetchReturn,
   IFetchReadResponse,
 } from './type';
-import { METHODS, APIURL } from './constants';
+import { METHODS, APIURL, APIKEY, COLLECTIONID } from './constants';
 
 async function fetchAPI({
   method,
@@ -13,10 +14,9 @@ async function fetchAPI({
   id = '',
 }: IFetchParams): Promise<IFetchReturn | undefined> {
   const headers = {
-    'X-Master-Key':
-      '$2b$10$wAAIDpTXEyMvkh9/8BUMueRegBYWO4tdopT38hxoX9q00zhNEsAb6' /* env */,
+    'X-Master-Key': APIKEY || '',
     'Content-Type': 'application/json',
-    'X-Collection-Id': '6074e126ee971419c4d7cb59' /* env */,
+    'X-Collection-Id': COLLECTIONID || '',
     'X-Bin-Name': Date.now().toString(),
   };
   const URL = `${APIURL}/${id}`;

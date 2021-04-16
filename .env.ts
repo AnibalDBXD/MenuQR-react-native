@@ -1,0 +1,2 @@
+export const APIKEY= "$2b$10$/Ly3jR0aLs4ygvKD4QRv/u9BztBUMKvY1PWKO3490Dcni2NyL1KUG"
+export const COLLECTIONID = "6074e126ee971419c4d7cb59"
