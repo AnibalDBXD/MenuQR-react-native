@@ -16,15 +16,15 @@ const MenuList: React.FC = (): JSX.Element => {
 
   const DATA = [
     {
-      MenuID: 'ad',
+      MenuID: '60761263ee971419c4d8ff0b',
       MenuName: 'Nashe',
     },
     {
-      MenuID: 'af',
+      MenuID: '6076125f5b165e19f61f7891',
       MenuName: 'Nashetopia',
     },
     {
-      MenuID: 'asd',
+      MenuID: '6075d4d45b165e19f61f528c',
       MenuName: 'Nashetropolis',
     },
   ];
