@@ -1,4 +1,6 @@
+import { IMenu } from '../../../Menu/types';
+
 export interface IMenuLabel {
-  MenuName: string;
-  MenuID: string;
+  MenuData: IMenu;
+  ID: string;
 }

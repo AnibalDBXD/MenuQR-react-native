@@ -17,7 +17,8 @@ const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
   const { container } = styles;
   const { setItem, getAllKeys } = AsyncStorage;
 
-  const ID = params?.data;
+  const ID = params?.id;
+  const LocalData = params?.data;
 
   const [Data, setData] = useState<IFetchReadResponse>();
   const [Loading, setLoading] = useState(false);
@@ -49,20 +50,20 @@ const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
     );
   }
 
-  if (Data?.record) {
+  if (Data?.record || LocalData) {
     if (ID) {
       getAllKeys().then(Allkeys => {
         // if Allkeys not includes the ID, add the data in the storage
         if (!Allkeys.includes(ID)) {
-          setItem(ID, JSON.stringify(Data.record));
+          setItem(ID, JSON.stringify(Data?.record));
         }
       });
     }
     return (
       <ComponentView>
         <MenuComponent
-          MenuName={Data.record.MenuName}
-          Categories={Data.record.Categories}
+          MenuName={LocalData?.MenuName || Data?.record?.MenuName || ''}
+          Categories={LocalData?.Categories || Data?.record?.Categories || []}
         />
       </ComponentView>
     );

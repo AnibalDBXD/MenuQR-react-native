@@ -3,7 +3,7 @@ import SCREENS from '../../navigation/constants';
 import { RootStackParamList } from '../../navigation/types';
 import { ICategory } from './Menu/Category/types';
 
-export type MenuParams = { data: string } | undefined;
+export type MenuParams = { id?: string; data?: IMenu } | undefined;
 
 type MenuScreenNavigationProp = RouteProp<RootStackParamList, SCREENS.menu>;
 

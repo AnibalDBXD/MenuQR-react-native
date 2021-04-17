@@ -20,8 +20,8 @@ const MenuList: React.FC = (): JSX.Element => {
       getItem(key).then(value => {
         if (value) {
           Data.push({
-            MenuID: key,
-            MenuName: JSON.parse(value).MenuName,
+            ID: key,
+            MenuData: JSON.parse(value),
           });
           setMenusData(Data);
         }
@@ -38,8 +38,8 @@ const MenuList: React.FC = (): JSX.Element => {
   const numColumns = Math.floor(windowWidth / MenuLabelWidthPlusMargin);
 
   const renderItem: ListRenderItem<IMenuLabel> = ({
-    item: { MenuID, MenuName },
-  }) => <MenuLabel MenuID={MenuID} MenuName={MenuName} />;
+    item: { ID, MenuData },
+  }) => <MenuLabel ID={ID} MenuData={MenuData} />;
 
   if (Loading) {
     return <Text>Loading</Text>;

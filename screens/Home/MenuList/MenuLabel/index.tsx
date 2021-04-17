@@ -7,7 +7,7 @@ import styles from './styles';
 import { QRSize } from '../../../../common/styles';
 import SCREENS from '../../../../navigation/constants';
 
-const MenuLabel: React.FC<IMenuLabel> = ({ MenuName, MenuID }): JSX.Element => {
+const MenuLabel: React.FC<IMenuLabel> = ({ ID, MenuData }): JSX.Element => {
   const { Container, ContainerText, QRContainer } = styles;
 
   const { navigate } = useNavigation();
@@ -15,12 +15,12 @@ const MenuLabel: React.FC<IMenuLabel> = ({ MenuName, MenuID }): JSX.Element => {
   return (
     <TouchableOpacity
       style={Container}
-      onPress={() => navigate(SCREENS.menu, { data: MenuID })}
+      onPress={() => navigate(SCREENS.menu, { data: MenuData })}
     >
       <View style={QRContainer}>
-        <QR value={MenuID} size={QRSize} />
+        <QR value={ID} size={QRSize} />
       </View>
-      <Text style={ContainerText}>{MenuName}</Text>
+      <Text style={ContainerText}>{MenuData.MenuName}</Text>
     </TouchableOpacity>
   );
 };

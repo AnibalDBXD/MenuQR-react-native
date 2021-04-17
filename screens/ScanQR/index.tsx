@@ -8,7 +8,7 @@ const ScanQR: React.FC<QRProps> = ({
   navigation: { navigate },
 }): JSX.Element => {
   const handleScanned = (data: string) => {
-    navigate(SCREENS.menu, { data });
+    navigate(SCREENS.menu, { id: data });
   };
   return (
     <SafeAreaView>
