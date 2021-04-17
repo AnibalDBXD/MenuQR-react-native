@@ -4,16 +4,15 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
 import Navigation from './navigation';
 import useLoading from './hooks/useLoading';
+import Loading from './components/Loading';
 
 const App = (): JSX.Element => {
   const [loading, error] = useLoading();
 
-  if (loading) return <Text>Loading</Text>;
-
   if (error) return <Text>Error! {error}</Text>;
   return (
     <SafeAreaProvider>
-      <Navigation />
+      {loading ? <Loading /> : <Navigation />}
       {/* eslint-disable-next-line react/style-prop-object */}
       <StatusBar style="auto" />
     </SafeAreaProvider>

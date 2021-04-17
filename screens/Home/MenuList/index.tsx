@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, ListRenderItem, Text } from 'react-native';
+import { FlatList, ListRenderItem } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MenuLabelWidthPlusMargin, windowWidth } from '../../../common/styles';
 import MenuLabel from './MenuLabel';
 import { IMenuLabel } from './MenuLabel/types';
+import LoadingComponent from '../../../components/Loading';
 import styles from './styles';
 
 const MenuList: React.FC = (): JSX.Element => {
@@ -42,7 +43,7 @@ const MenuList: React.FC = (): JSX.Element => {
   }) => <MenuLabel ID={ID} MenuData={MenuData} />;
 
   if (Loading) {
-    return <Text>Loading</Text>;
+    return <LoadingComponent />;
   }
 
   return (

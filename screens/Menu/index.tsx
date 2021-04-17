@@ -6,7 +6,7 @@ import { MenuProps } from './types';
 import styles from './styles';
 
 import Error from './Error';
-import LoadingComponent from './Loading';
+import LoadingComponent from '../../components/Loading';
 import MenuComponent from './Menu';
 import NoMenu from './NoMenu';
 

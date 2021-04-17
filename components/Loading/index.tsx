@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { Colors, Center } from '../../../common/styles';
+import { Colors, Center } from '../../common/styles';
 
 const Loading: React.FC = (): JSX.Element => (
   <View style={Center.center}>
