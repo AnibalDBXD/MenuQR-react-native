@@ -17,8 +17,8 @@ const Category: React.FC<ICategory> = ({
   return (
     <View style={categoryContainer}>
       <Text style={categoryTitle}>{CategoryName}</Text>
-      {products.map(({ ProductName, price, id }) => (
-        <View key={id} style={productContainer}>
+      {products.map(({ ProductName, price, id }, index) => (
+        <View key={id || index} style={productContainer}>
           <Text style={productName}>{ProductName}</Text>
           <Text style={productPrice}>{price}</Text>
         </View>

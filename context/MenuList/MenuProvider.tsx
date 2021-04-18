@@ -4,6 +4,7 @@ import { initialState, MenuContext } from './MenuContext';
 import MenuReducer from './MenuReducer';
 import { IMenuLabel } from '../../screens/Home/MenuList/MenuLabel/types';
 import MenuActions from './MenuActions';
+import defaultData from './defaultData';
 
 interface IProps {
   children: ReactNode;
@@ -11,7 +12,12 @@ interface IProps {
 
 const MenuProvider = ({ children }: IProps): JSX.Element => {
   const [state, dispatch] = useReducer(MenuReducer, initialState);
-  const { getAllKeys, getItem } = AsyncStorage;
+  const { getAllKeys, getItem, setItem } = AsyncStorage;
+
+  const isFirstTime = async () => {
+    const result = (await getItem('FirstTime')) === null;
+    return result;
+  };
 
   const SetMenus = (newMenus: IMenuLabel[]): void => {
     dispatch({ type: MenuActions.SET_MENU_LIST, payload: newMenus });
@@ -22,11 +28,15 @@ const MenuProvider = ({ children }: IProps): JSX.Element => {
   };
 
   const getMenusData = useCallback(async () => {
-    const Keys = await getAllKeys();
     const Data: IMenuLabel[] = [];
+    if (await isFirstTime()) {
+      setItem('FirstTime', 'false');
+      setItem('FirstTimeData', JSON.stringify(defaultData));
+    }
+    const Keys = await getAllKeys();
     Keys.map(key =>
       getItem(key).then(value => {
-        if (value) {
+        if (value && value !== 'false') {
           Data.push({
             ID: key,
             MenuData: JSON.parse(value),
@@ -35,12 +45,15 @@ const MenuProvider = ({ children }: IProps): JSX.Element => {
         }
       }),
     );
+
     SetLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getAllKeys, getItem]);
 
   useEffect((): void => {
     getMenusData();
-  }, [getMenusData, state.Menus]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <MenuContext.Provider

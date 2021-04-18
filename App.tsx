@@ -5,17 +5,20 @@ import React from 'react';
 import Navigation from './navigation';
 import useLoading from './hooks/useLoading';
 import Loading from './components/Loading';
+import MenuProvider from './context/MenuList/MenuProvider';
 
 const App = (): JSX.Element => {
   const [loading, error] = useLoading();
 
   if (error) return <Text>Error! {error}</Text>;
   return (
-    <SafeAreaProvider>
-      {loading ? <Loading /> : <Navigation />}
-      {/* eslint-disable-next-line react/style-prop-object */}
-      <StatusBar style="auto" />
-    </SafeAreaProvider>
+    <MenuProvider>
+      <SafeAreaProvider>
+        {loading ? <Loading /> : <Navigation />}
+        {/* eslint-disable-next-line react/style-prop-object */}
+        <StatusBar style="auto" />
+      </SafeAreaProvider>
+    </MenuProvider>
   );
 };
 

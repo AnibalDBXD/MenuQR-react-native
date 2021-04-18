@@ -15,7 +15,8 @@ const MenuList: React.FC = (): JSX.Element => {
 
   const renderItem: ListRenderItem<IMenuLabel> = ({
     item: { ID, MenuData },
-  }) => <MenuLabel ID={ID} MenuData={MenuData} />;
+    index,
+  }) => <MenuLabel ID={ID} MenuData={MenuData} key={index} />;
 
   if (Loading) {
     return <LoadingComponent />;

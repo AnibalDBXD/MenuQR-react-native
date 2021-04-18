@@ -10,8 +10,12 @@ const Menu: React.FC<IMenu> = ({ Categories, MenuName }): JSX.Element => {
     <>
       <Text style={containerTitle}>{MenuName}</Text>
       <View style={CaterogiesContainer}>
-        {Categories.map(({ CategoryName, products, id }) => (
-          <Category CategoryName={CategoryName} products={products} key={id} />
+        {Categories.map(({ CategoryName, products, id }, index) => (
+          <Category
+            CategoryName={CategoryName}
+            products={products}
+            key={id || index}
+          />
         ))}
       </View>
     </>
