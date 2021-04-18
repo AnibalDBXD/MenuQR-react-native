@@ -24,6 +24,7 @@ export enum Colors {
   Black = '#000000',
   White = '#FFFFFF',
   Punch = '#D72828',
+  Red = '#FF0000',
 }
 
 export const Center = StyleSheet.create({

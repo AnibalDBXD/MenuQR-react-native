@@ -11,11 +11,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.White,
     flexDirection: 'column',
     width: MenuLabelWidth,
-    height: 200,
+    height: 240,
     padding: 6,
     shadowOffset: { height: 5, width: 2 },
     shadowRadius: 20,
-    shadowOpacity: 0.15,
+    shadowOpacity: 1,
+    elevation: 3,
     shadowColor: Colors.Black,
     margin: Sizes.small,
   },
@@ -29,6 +30,13 @@ const styles = StyleSheet.create({
     fontSize: Sizes.mediumSmall,
     textAlign: 'center',
     fontFamily: FontFamily.RobotoBold,
+  },
+  BottomButtons: {
+    paddingRight: 8,
+    paddingLeft: 8,
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
