@@ -12,10 +12,12 @@ import NoMenu from './NoMenu';
 
 import { getMenu } from '../../api';
 import { IFetchReadResponse } from '../../api/type';
+import { useMenuContext } from '../../context/MenuList/MenuContext';
 
 const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
   const { container } = styles;
   const { setItem, getAllKeys } = AsyncStorage;
+  const { SetMenus, Menus } = useMenuContext();
 
   const ID = params?.id;
   const LocalData = params?.data;
@@ -29,9 +31,12 @@ const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
       getMenu(ID)
         .then(data => {
           setData(data);
+          if (SetMenus && data?.record)
+            SetMenus([...Menus, { ID, MenuData: data.record }]);
         })
         .then(() => setLoading(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ID]);
 
   const ComponentView: React.FC = ({ children }): JSX.Element => (
@@ -69,7 +74,7 @@ const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
     );
   }
 
-  if (Data?.error) {
+  if (Data?.error || Data?.message) {
     return (
       <ComponentView>
         <Error
