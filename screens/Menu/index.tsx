@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MenuProps } from './types';
-import styles from './styles';
-
-import Error from './Error';
-import LoadingComponent from '../../components/Loading';
-import MenuComponent from './Menu';
-import NoMenu from './NoMenu';
 
 import { getMenu } from '../../api';
 import { IFetchReadResponse } from '../../api/type';
 import { useMenuContext } from '../../context/MenuList/MenuContext';
 
+import withData from './withData';
+
 const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
-  const { container } = styles;
   const { setItem, getAllKeys } = AsyncStorage;
   const { SetMenus, Menus } = useMenuContext();
 
   const ID = params?.id;
-  const LocalData = params?.data;
+
+  const [LocalData, setLocalData] = useState(params?.data);
 
   const [Data, setData] = useState<IFetchReadResponse>();
   const [Loading, setLoading] = useState(false);
@@ -35,28 +29,8 @@ const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
             SetMenus([...Menus, { ID, MenuData: data.record }]);
         })
         .then(() => setLoading(false));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ID]);
 
-  const ComponentView: React.FC = ({ children }): JSX.Element => (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={container}>{children}</View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-
-  if (Loading) {
-    return (
-      <ComponentView>
-        <LoadingComponent />
-      </ComponentView>
-    );
-  }
-
-  if (Data?.record || LocalData) {
-    if (ID) {
+      // save the data in the storage
       getAllKeys().then(Allkeys => {
         // if Allkeys not includes the ID, add the data in the storage
         if (!Allkeys.includes(ID)) {
@@ -64,31 +38,21 @@ const Menu: React.FC<MenuProps> = ({ route: { params } }): JSX.Element => {
         }
       });
     }
-    return (
-      <ComponentView>
-        <MenuComponent
-          MenuName={LocalData?.MenuName || Data?.record?.MenuName || ''}
-          Categories={LocalData?.Categories || Data?.record?.Categories || []}
-        />
-      </ComponentView>
-    );
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params?.id]);
 
-  if (Data?.error || Data?.message) {
-    return (
-      <ComponentView>
-        <Error
-          errorMessage={Data?.error || Data?.message || 'Error not found D:'}
-        />
-      </ComponentView>
-    );
-  }
+  useEffect(() => {
+    setData(undefined);
+    setLocalData(params?.data);
+  }, [params?.data]);
 
-  return (
-    <ComponentView>
-      <NoMenu />
-    </ComponentView>
-  );
+  const Component = withData({
+    isLoading: Loading,
+    Data: Data?.record || LocalData,
+    Error: Data?.error,
+  });
+
+  return <Component />;
 };
 
 export default Menu;
