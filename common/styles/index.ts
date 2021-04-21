@@ -8,6 +8,7 @@ export enum Sizes {
   mediumSmall = 18,
   medium = 24,
   large = 32,
+  extraLarge = 40,
 }
 
 export enum FontFamily {
