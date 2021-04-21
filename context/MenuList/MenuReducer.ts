@@ -18,6 +18,12 @@ const MenuReducer = (state: IMenuState, action: IMenuActions): IMenuState => {
         Loading: payload as boolean,
       };
 
+    case MenuActions.SET_CREATING:
+      return {
+        ...state,
+        isCreating: payload as boolean,
+      };
+
     default:
       return state;
   }

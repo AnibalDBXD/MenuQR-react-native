@@ -27,6 +27,10 @@ const MenuProvider = ({ children }: IProps): JSX.Element => {
     dispatch({ type: MenuActions.SET_LOADING, payload: loading });
   };
 
+  const SetCreating = (creating: boolean): void => {
+    dispatch({ type: MenuActions.SET_CREATING, payload: creating });
+  };
+
   const getMenusData = useCallback(async () => {
     const Data: IMenuLabel[] = [];
     if (await isFirstTime()) {
@@ -57,7 +61,13 @@ const MenuProvider = ({ children }: IProps): JSX.Element => {
 
   return (
     <MenuContext.Provider
-      value={{ Menus: state.Menus, SetMenus, Loading: state.Loading }}
+      value={{
+        Menus: state.Menus,
+        SetMenus,
+        Loading: state.Loading,
+        isCreating: state.isCreating,
+        SetCreating,
+      }}
     >
       {children}
     </MenuContext.Provider>

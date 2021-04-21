@@ -4,7 +4,9 @@ import MenuActions from './MenuActions';
 export interface IMenuState {
   Menus: IMenuLabel[];
   SetMenus?: (newMenus: IMenuLabel[]) => void;
+  SetCreating?: (creating: boolean) => void;
   Loading: boolean;
+  isCreating: boolean;
 }
 
 export interface IMenuActions {

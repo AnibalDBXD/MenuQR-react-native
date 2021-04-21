@@ -6,4 +6,5 @@ export type RootStackParamList = {
   Home: HomeParams;
   Menu: MenuParams;
   ScanQR: ScanQRParams;
+  createMenu: undefined;
 };
