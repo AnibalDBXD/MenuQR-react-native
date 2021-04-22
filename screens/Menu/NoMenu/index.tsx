@@ -1,7 +1,8 @@
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { View, Text } from 'react-native';
-import { Center, Colors } from '../../../common/styles';
+import { Colors } from '../../../common/styles';
+import { Center } from '../../../common/styles/styles';
 import styles from './styles';
 
 const NoMenu: React.FC = (): JSX.Element => {

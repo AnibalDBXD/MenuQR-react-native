@@ -1,11 +1,8 @@
 import React from 'react';
 import { FlatList, ListRenderItem, View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import {
-  MenuLabelWidthPlusMargin,
-  windowWidth,
-  Center,
-} from '../../../common/styles';
+import { MenuLabelWidthPlusMargin, windowWidth } from '../../../common/styles';
+import { Center } from '../../../common/styles/styles';
 import MenuLabel from './MenuLabel';
 import { IMenuLabel } from './MenuLabel/types';
 import LoadingComponent from '../../../components/Loading';

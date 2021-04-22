@@ -1,8 +1,16 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Sizes } from '../../common/styles';
+import { Colors, Sizes, windowHeight } from '.';
 
-const styles = StyleSheet.create({
-  Header: {
+export const Center = StyleSheet.create({
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: windowHeight - 128,
+  },
+});
+
+export const Header = StyleSheet.create({
+  header: {
     backgroundColor: Colors.White,
     paddingTop: Sizes.small,
     paddingBottom: Sizes.small,
@@ -14,10 +22,8 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     elevation: 3,
   },
-  HeaderText: {
+  headerText: {
     fontSize: Sizes.medium,
     textAlign: 'center',
   },
 });
-
-export default styles;

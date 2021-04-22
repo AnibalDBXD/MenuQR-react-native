@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 
 export const windowHeight = Dimensions.get('window').height;
 export const windowWidth = Dimensions.get('window').width;
@@ -27,14 +27,6 @@ export enum Colors {
   Punch = '#D72828',
   Red = '#FF0000',
 }
-
-export const Center = StyleSheet.create({
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: windowHeight - 128,
-  },
-});
 
 export const QRSize = 150;
 

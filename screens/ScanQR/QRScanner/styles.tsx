@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
-import {
-  windowWidth,
-  windowHeight,
-  Colors,
-  Center,
-} from '../../../common/styles';
+import { windowWidth, windowHeight, Colors } from '../../../common/styles';
+import { Center } from '../../../common/styles/styles';
 
 const { center } = Center;
 

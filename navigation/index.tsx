@@ -1,7 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons, Entypo } from '@expo/vector-icons';
+
 import { RootStackParamList } from './types';
 
 // Screens
@@ -61,7 +62,20 @@ const Navigation: React.FC = (): JSX.Element => {
           }}
         />
         {isCreating && (
-          <Screen name={SCREENS.createMenu} component={CreateMenu} />
+          <Screen
+            name={SCREENS.createMenu}
+            component={CreateMenu}
+            options={{
+              tabBarLabel: 'Create a new menu',
+              tabBarIcon: ({ focused }) => (
+                <Entypo
+                  name="new-message"
+                  size={Sizes.medium}
+                  color={focused ? Colors.DodgerBlue : Colors.Black}
+                />
+              ),
+            }}
+          />
         )}
       </Navigator>
     </NavigationContainer>
