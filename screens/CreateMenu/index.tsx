@@ -1,17 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { ScrollView, View, Text, TextInput, Button } from 'react-native';
 import { ICategory, IProduct } from '../Menu/Menu/Category/types';
 import { Header } from '../../common/styles/styles';
 import styles from './styles';
+
+import CreateCategories from './CreateCategories';
 
 const DEFAULT_PRODUCT: IProduct = {
   ProductName: 'new Product',
@@ -27,18 +21,7 @@ const DEFAULT_CATEGORY: ICategory = {
 
 const CreateMenu: React.FC = (): JSX.Element => {
   const { header, headerText } = Header;
-  const {
-    inputContainerTitle,
-    inputTitle,
-    inputsContainer,
-    inputCategory,
-    productContainer,
-    productName,
-    productPrice,
-    AddCategoryContainer,
-    CategoryTop,
-    deleteButton,
-  } = styles;
+  const { inputContainerTitle, inputTitle, inputsContainer } = styles;
 
   const [Categories, setCategories] = useState<ICategory[]>([DEFAULT_CATEGORY]);
 
@@ -96,48 +79,21 @@ const CreateMenu: React.FC = (): JSX.Element => {
           <View style={inputContainerTitle}>
             <TextInput style={inputTitle} placeholder="Menu title" />
           </View>
-          {Categories.map(({ CategoryName, products, id: cId }, cIndex) => (
-            <View key={cId || cIndex}>
-              <View style={CategoryTop}>
-                <TextInput style={inputCategory} placeholder={CategoryName} />
-                <TouchableOpacity
-                  style={deleteButton}
-                  onPress={() => RemoveCategory(cIndex)}
-                >
-                  <Feather name="delete" size={24} color="black" />
-                </TouchableOpacity>
-              </View>
-              {products.map(({ ProductName, price, id: pId }, pIndex) => (
-                <View key={pId || pIndex}>
-                  <View style={productContainer}>
-                    <TextInput style={productName} placeholder={ProductName} />
-                    <TextInput
-                      style={productPrice}
-                      placeholder={price as string}
-                    />
-                    <TouchableOpacity
-                      style={deleteButton}
-                      onPress={() => RemoveProduct(cIndex, pIndex)}
-                    >
-                      <Feather name="delete" size={24} color="black" />
-                    </TouchableOpacity>
-                  </View>
-                  {products.length - 1 === pIndex && (
-                    <View style={AddCategoryContainer}>
-                      <Button
-                        title="Add Product"
-                        onPress={() => AddProduct(cIndex)}
-                      />
-                    </View>
-                  )}
-                </View>
-              ))}
-              {Categories.length - 1 === cIndex && (
+          {Categories.map(({ CategoryName, products, id }, index) => (
+            <>
+              <CreateCategories
+                name={CategoryName}
+                products={products}
+                id={id || index}
+                removeCategory={() => RemoveCategory(index)}
+                addProduct={() => AddProduct(index)}
+              />
+              {Categories.length - 1 === index && (
                 <View>
                   <Button title="Add Category" onPress={AddCategory} />
                 </View>
               )}
-            </View>
+            </>
           ))}
         </View>
       </ScrollView>
