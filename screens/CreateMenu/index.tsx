@@ -70,7 +70,7 @@ const CreateMenu: React.FC = (): JSX.Element => {
 
   const RemoveCategory = (CategoryIndex: number) => {
     const newCategories = [...Categories];
-    newCategories.splice(CategoryIndex, CategoryIndex);
+    newCategories.splice(CategoryIndex, 1);
     setCategories(newCategories);
   };
 
@@ -78,7 +78,7 @@ const CreateMenu: React.FC = (): JSX.Element => {
     const newCategories = [...Categories];
     const { products } = newCategories[CategoryIndex];
 
-    products.splice(productIndex, productIndex);
+    products.splice(productIndex, 1);
 
     newCategories[CategoryIndex].products = products;
 
