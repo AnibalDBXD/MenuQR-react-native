@@ -1,6 +1,6 @@
 export type IProduct = {
   ProductName: string;
-  price: number | string;
+  price: string;
   id?: number | string;
 };
 

@@ -7,32 +7,39 @@ import styles from './styles';
 import DeleteButton from '../../../components/DeleteButton';
 
 const CreateCategories: React.FC<ICreateCategories> = ({
-  id,
   name,
   products,
   removeCategory,
+  handleChangeName,
   addProduct,
+  removeProduct,
 }): JSX.Element => {
   const { CategoryTop, inputCategory, AddCategoryContainer } = styles;
   return (
-    <View key={id}>
+    <View>
       <View style={CategoryTop}>
-        <TextInput style={inputCategory} placeholder={name} />
+        <TextInput
+          value={name}
+          style={inputCategory}
+          onChangeText={handleChangeName}
+          placeholder="Category name"
+        />
         <DeleteButton handlePress={removeCategory} />
       </View>
       {products.map(({ ProductName, price, id: pId }, index) => (
-        <>
+        <View key={pId || index}>
           <CreateProducts
             id={pId || index}
             name={ProductName}
-            price={price as string}
+            price={price}
+            removeProduct={() => removeProduct(index)}
           />
           {products.length - 1 === index && (
             <View style={AddCategoryContainer}>
               <Button title="Add Product" onPress={addProduct} />
             </View>
           )}
-        </>
+        </View>
       ))}
     </View>
   );

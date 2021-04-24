@@ -1,73 +1,23 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, View, Text, TextInput, Button } from 'react-native';
-import { ICategory, IProduct } from '../Menu/Menu/Category/types';
+import { Formik, FormikProps } from 'formik';
 import { Header } from '../../common/styles/styles';
 import styles from './styles';
 
 import CreateCategories from './CreateCategories';
-
-const DEFAULT_PRODUCT: IProduct = {
-  ProductName: 'new Product',
-  price: '1$',
-  id: 'FuncionaPorfavor',
-};
-
-const DEFAULT_CATEGORY: ICategory = {
-  CategoryName: 'new Category',
-  products: [DEFAULT_PRODUCT],
-  id: 'daleporfisfunciona',
-};
+import { IFormValues } from './types';
+import { INITIAL_VALUES } from './const';
+import {
+  AddCategory,
+  AddProduct,
+  RemoveCategory,
+  RemoveProduct,
+} from './utils';
 
 const CreateMenu: React.FC = (): JSX.Element => {
   const { header, headerText } = Header;
   const { inputContainerTitle, inputTitle, inputsContainer } = styles;
-
-  const [Categories, setCategories] = useState<ICategory[]>([DEFAULT_CATEGORY]);
-
-  const [, updateState] = useState<unknown>();
-  const forceUpdate = useCallback(() => updateState({}), []);
-
-  const AddProduct = (CategoryIndex: number) => {
-    const newCategories = [...Categories];
-    const { products } = newCategories[CategoryIndex];
-
-    const newProduct = { ...DEFAULT_PRODUCT, id: Date.now().toString() };
-
-    newCategories[CategoryIndex].products = [...products, newProduct];
-
-    setCategories(newCategories);
-    forceUpdate();
-  };
-
-  const AddCategory = () => {
-    setCategories([
-      ...Categories,
-      {
-        ...DEFAULT_CATEGORY,
-        id: Date.now().toString(),
-        products: [DEFAULT_PRODUCT],
-      },
-    ]);
-  };
-
-  const RemoveCategory = (CategoryIndex: number) => {
-    const newCategories = [...Categories];
-    newCategories.splice(CategoryIndex, 1);
-    setCategories(newCategories);
-  };
-
-  const RemoveProduct = (CategoryIndex: number, productIndex: number) => {
-    const newCategories = [...Categories];
-    const { products } = newCategories[CategoryIndex];
-
-    products.splice(productIndex, 1);
-
-    newCategories[CategoryIndex].products = products;
-
-    setCategories(newCategories);
-    forceUpdate();
-  };
 
   return (
     <SafeAreaView>
@@ -75,27 +25,67 @@ const CreateMenu: React.FC = (): JSX.Element => {
         <View style={header}>
           <Text style={headerText}>Create your own menu</Text>
         </View>
-        <View style={inputsContainer}>
-          <View style={inputContainerTitle}>
-            <TextInput style={inputTitle} placeholder="Menu title" />
-          </View>
-          {Categories.map(({ CategoryName, products, id }, index) => (
-            <>
-              <CreateCategories
-                name={CategoryName}
-                products={products}
-                id={id || index}
-                removeCategory={() => RemoveCategory(index)}
-                addProduct={() => AddProduct(index)}
-              />
-              {Categories.length - 1 === index && (
-                <View>
-                  <Button title="Add Category" onPress={AddCategory} />
-                </View>
+        <Formik
+          initialValues={INITIAL_VALUES}
+          onSubmit={value => console.log(value)}
+        >
+          {({
+            handleChange,
+            handleSubmit,
+            setFieldValue,
+            values,
+          }: FormikProps<IFormValues>) => (
+            <View style={inputsContainer}>
+              <View style={inputContainerTitle}>
+                <TextInput
+                  onChangeText={handleChange('title')}
+                  value={values.title}
+                  style={inputTitle}
+                  placeholder="Menu title"
+                />
+              </View>
+              {values.categories.map(
+                ({ CategoryName, products, id }, index) => (
+                  <View key={id || index}>
+                    <CreateCategories
+                      name={CategoryName}
+                      handleChangeName={handleChange(
+                        `categories[${index}].CategoryName`,
+                      )}
+                      products={products}
+                      id={id || index}
+                      removeCategory={() =>
+                        RemoveCategory(values.categories, setFieldValue, index)
+                      }
+                      addProduct={() =>
+                        AddProduct(values.categories, setFieldValue, index)
+                      }
+                      removeProduct={pIndex =>
+                        RemoveProduct(
+                          values.categories,
+                          setFieldValue,
+                          index,
+                          pIndex,
+                        )
+                      }
+                    />
+                    {values.categories.length - 1 === index && (
+                      <View>
+                        <Button
+                          title="Add Category"
+                          onPress={() =>
+                            AddCategory(values.categories, setFieldValue)
+                          }
+                        />
+                      </View>
+                    )}
+                  </View>
+                ),
               )}
-            </>
-          ))}
-        </View>
+              <Button title="Submit" onPress={() => handleSubmit()} />
+            </View>
+          )}
+        </Formik>
       </ScrollView>
     </SafeAreaView>
   );
