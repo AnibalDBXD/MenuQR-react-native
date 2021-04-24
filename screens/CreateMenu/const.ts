@@ -3,7 +3,7 @@ import { IFormValues } from './types';
 
 export const DEFAULT_PRODUCT: IProduct = {
   ProductName: '',
-  price: '1$',
+  price: '',
   id: 'firstProduct',
 };
 

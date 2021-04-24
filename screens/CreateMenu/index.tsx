@@ -49,9 +49,19 @@ const CreateMenu: React.FC = (): JSX.Element => {
                   <View key={id || index}>
                     <CreateCategories
                       name={CategoryName}
-                      handleChangeName={handleChange(
+                      handleChangeCategoryName={handleChange(
                         `categories[${index}].CategoryName`,
                       )}
+                      handleChangeProductName={pIndex =>
+                        handleChange(
+                          `categories[${index}].products[${pIndex}].ProductName`,
+                        )
+                      }
+                      handleChangeProductPrice={pIndex =>
+                        handleChange(
+                          `categories[${index}].products[${pIndex}].price`,
+                        )
+                      }
                       products={products}
                       id={id || index}
                       removeCategory={() =>

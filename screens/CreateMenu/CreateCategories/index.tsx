@@ -10,7 +10,9 @@ const CreateCategories: React.FC<ICreateCategories> = ({
   name,
   products,
   removeCategory,
-  handleChangeName,
+  handleChangeCategoryName,
+  handleChangeProductName,
+  handleChangeProductPrice,
   addProduct,
   removeProduct,
 }): JSX.Element => {
@@ -21,7 +23,7 @@ const CreateCategories: React.FC<ICreateCategories> = ({
         <TextInput
           value={name}
           style={inputCategory}
-          onChangeText={handleChangeName}
+          onChangeText={handleChangeCategoryName}
           placeholder="Category name"
         />
         <DeleteButton handlePress={removeCategory} />
@@ -33,6 +35,8 @@ const CreateCategories: React.FC<ICreateCategories> = ({
             name={ProductName}
             price={price}
             removeProduct={() => removeProduct(index)}
+            handleChangeProductName={handleChangeProductName(index)}
+            handleChangeProductPrice={handleChangeProductPrice(index)}
           />
           {products.length - 1 === index && (
             <View style={AddCategoryContainer}>
