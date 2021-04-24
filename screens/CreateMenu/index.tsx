@@ -153,7 +153,7 @@ const CreateMenu: React.FC<ICreateMenuProps> = ({
               style={qrButtonContainer}
               onPress={() => setFullQR(true)}
             >
-              <Text>Click to see the full QR!</Text>
+              <Text>Click to see the full QR</Text>
               <QRcomponent value={QR} size={QRSize} />
             </TouchableOpacity>
             <View style={saveButtonContainer}>
