@@ -15,6 +15,27 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
     textAlign: 'center',
   },
+  addCategoryButtonContainer: {
+    marginBottom: Sizes.medium,
+  },
+  fullQRContainer: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  qrButtonContainer: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: Sizes.small,
+    marginBottom: Sizes.small,
+  },
+  saveButtonContainer: {
+    width: '50%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
 });
 
 export default styles;

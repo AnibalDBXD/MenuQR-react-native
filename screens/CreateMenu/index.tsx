@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, View, Text, TextInput, Button } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import { Formik, FormikProps } from 'formik';
+import QRcomponent from 'react-native-qrcode-svg';
 import { Header } from '../../common/styles/styles';
 import styles from './styles';
 
 import CreateCategories from './CreateCategories';
-import { IFormValues } from './types';
+import { ICreateMenuProps, IFormValues } from './types';
 import { INITIAL_VALUES } from './const';
 import {
   AddCategory,
@@ -14,21 +22,60 @@ import {
   RemoveCategory,
   RemoveProduct,
 } from './utils';
+import { IMenu } from '../Menu/types';
 
-const CreateMenu: React.FC = (): JSX.Element => {
+import { createMenu } from '../../api';
+import { QRSize } from '../../common/styles';
+import SCREENS from '../../navigation/constants';
+
+const CreateMenu: React.FC<ICreateMenuProps> = ({
+  navigation: { navigate },
+}): JSX.Element => {
   const { header, headerText } = Header;
-  const { inputContainerTitle, inputTitle, inputsContainer } = styles;
+  const {
+    inputContainerTitle,
+    inputTitle,
+    inputsContainer,
+    fullQRContainer,
+    qrButtonContainer,
+    saveButtonContainer,
+    addCategoryButtonContainer,
+  } = styles;
 
+  const [QR, setQR] = useState('');
+  const [FullQR, setFullQR] = useState(false);
+
+  const handleFormSubmit = ({ title, categories }: IFormValues) => {
+    const Menu: IMenu = {
+      MenuName: title,
+      Categories: categories,
+    };
+    createMenu(Menu).then(value => setQR(value.metadata.id));
+  };
+
+  const handleSave = () => {
+    navigate(SCREENS.menu, { id: QR });
+  };
+
+  if (FullQR) {
+    return (
+      <SafeAreaView>
+        <TouchableOpacity
+          style={fullQRContainer}
+          onPress={() => setFullQR(false)}
+        >
+          <QRcomponent value={QR} size={QRSize + 100} />
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  }
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={header}>
           <Text style={headerText}>Create your own menu</Text>
         </View>
-        <Formik
-          initialValues={INITIAL_VALUES}
-          onSubmit={value => console.log(value)}
-        >
+        <Formik initialValues={INITIAL_VALUES} onSubmit={handleFormSubmit}>
           {({
             handleChange,
             handleSubmit,
@@ -80,7 +127,7 @@ const CreateMenu: React.FC = (): JSX.Element => {
                       }
                     />
                     {values.categories.length - 1 === index && (
-                      <View>
+                      <View style={addCategoryButtonContainer}>
                         <Button
                           title="Add Category"
                           onPress={() =>
@@ -92,10 +139,28 @@ const CreateMenu: React.FC = (): JSX.Element => {
                   </View>
                 ),
               )}
-              <Button title="Submit" onPress={() => handleSubmit()} />
+              <Button
+                disabled={QR === ''}
+                title="Submit"
+                onPress={() => handleSubmit()}
+              />
             </View>
           )}
         </Formik>
+        {QR !== '' && (
+          <>
+            <TouchableOpacity
+              style={qrButtonContainer}
+              onPress={() => setFullQR(true)}
+            >
+              <Text>Click to see the full QR!</Text>
+              <QRcomponent value={QR} size={QRSize} />
+            </TouchableOpacity>
+            <View style={saveButtonContainer}>
+              <Button title="Save menu" onPress={handleSave} />
+            </View>
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
