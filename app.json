@@ -23,7 +23,8 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "versionCode": 1
+      "versionCode": 1,
+      "package": "com.anibaldbxd.MenuQR"
     }
   }
 }
