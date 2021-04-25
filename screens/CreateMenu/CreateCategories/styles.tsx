@@ -15,10 +15,8 @@ const styles = StyleSheet.create({
     width: '90%',
     letterSpacing: 2,
   },
-  AddCategoryContainer: {
-    width: '50%',
-    textAlign: 'center',
-    marginBottom: Sizes.mediumSmall,
+  addCategoryButtonContainer: {
+    marginBottom: Sizes.medium,
   },
 });
 

@@ -15,9 +15,6 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
     textAlign: 'center',
   },
-  addCategoryButtonContainer: {
-    marginBottom: Sizes.medium,
-  },
   fullQRContainer: {
     width: '100%',
     height: '100%',

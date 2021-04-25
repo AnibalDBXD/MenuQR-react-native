@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: '20%',
   },
+  AddProductContainer: {
+    width: '50%',
+    textAlign: 'center',
+    marginBottom: Sizes.mediumSmall,
+  },
 });
 
 export default styles;

@@ -16,12 +16,6 @@ import styles from './styles';
 import CreateCategories from './CreateCategories';
 import { ICreateMenuProps, IFormValues } from './types';
 import { INITIAL_VALUES } from './const';
-import {
-  AddCategory,
-  AddProduct,
-  RemoveCategory,
-  RemoveProduct,
-} from './utils';
 import { IMenu } from '../../common/interfaces';
 
 import { createMenu } from '../../api';
@@ -39,7 +33,6 @@ const CreateMenu: React.FC<ICreateMenuProps> = ({
     fullQRContainer,
     qrButtonContainer,
     saveButtonContainer,
-    addCategoryButtonContainer,
   } = styles;
 
   const [QR, setQR] = useState('');
@@ -79,7 +72,6 @@ const CreateMenu: React.FC<ICreateMenuProps> = ({
           {({
             handleChange,
             handleSubmit,
-            setFieldValue,
             values,
           }: FormikProps<IFormValues>) => (
             <View style={inputsContainer}>
@@ -91,56 +83,13 @@ const CreateMenu: React.FC<ICreateMenuProps> = ({
                   placeholder="Menu title"
                 />
               </View>
-              {values.categories.map(
-                ({ CategoryName, products, id }, index) => (
-                  <View key={id || index}>
-                    <CreateCategories
-                      name={CategoryName}
-                      handleChangeCategoryName={handleChange(
-                        `categories[${index}].CategoryName`,
-                      )}
-                      handleChangeProductName={pIndex =>
-                        handleChange(
-                          `categories[${index}].products[${pIndex}].ProductName`,
-                        )
-                      }
-                      handleChangeProductPrice={pIndex =>
-                        handleChange(
-                          `categories[${index}].products[${pIndex}].price`,
-                        )
-                      }
-                      products={products}
-                      id={id || index}
-                      removeCategory={() =>
-                        RemoveCategory(values.categories, setFieldValue, index)
-                      }
-                      addProduct={() =>
-                        AddProduct(values.categories, setFieldValue, index)
-                      }
-                      removeProduct={pIndex =>
-                        RemoveProduct(
-                          values.categories,
-                          setFieldValue,
-                          index,
-                          pIndex,
-                        )
-                      }
-                    />
-                    {values.categories.length - 1 === index && (
-                      <View style={addCategoryButtonContainer}>
-                        <Button
-                          title="Add Category"
-                          onPress={() =>
-                            AddCategory(values.categories, setFieldValue)
-                          }
-                        />
-                      </View>
-                    )}
-                  </View>
-                ),
-              )}
+              {values.categories.map(({ id }, index) => (
+                <View key={id || index}>
+                  <CreateCategories index={index} />
+                </View>
+              ))}
               <Button
-                disabled={QR === ''}
+                disabled={QR !== ''}
                 title="Submit"
                 onPress={() => handleSubmit()}
               />

@@ -1,51 +1,64 @@
 import React from 'react';
 import { Button, TextInput, View } from 'react-native';
+import { useFormikContext } from 'formik';
 import { ICreateCategories } from './types';
 import CreateProducts from './CreateProducts';
 
 import styles from './styles';
 import DeleteButton from '../../../components/DeleteButton';
+import { AddCategory, RemoveCategory } from '../utils';
+import { IFormValues } from '../types';
 
 const CreateCategories: React.FC<ICreateCategories> = ({
-  name,
-  products,
-  removeCategory,
-  handleChangeCategoryName,
-  handleChangeProductName,
-  handleChangeProductPrice,
-  addProduct,
-  removeProduct,
+  index,
 }): JSX.Element => {
-  const { CategoryTop, inputCategory, AddCategoryContainer } = styles;
+  const { CategoryTop, inputCategory, addCategoryButtonContainer } = styles;
+
+  const {
+    handleChange,
+    values,
+    setFieldValue,
+  } = useFormikContext<IFormValues>();
+
+  const handleChangeCategoryName = handleChange(
+    `categories[${index}].CategoryName`,
+  );
+
+  const { CategoryName, products } = values.categories[index];
+
+  const removeCategory = () =>
+    RemoveCategory(values.categories, setFieldValue, index);
+
+  const addCategory = () => AddCategory(values.categories, setFieldValue);
+
   return (
-    <View>
-      <View style={CategoryTop}>
-        <TextInput
-          value={name}
-          style={inputCategory}
-          onChangeText={handleChangeCategoryName}
-          placeholder="Category name"
-        />
-        <DeleteButton handlePress={removeCategory} />
-      </View>
-      {products.map(({ ProductName, price, id: pId }, index) => (
-        <View key={pId || index}>
-          <CreateProducts
-            id={pId || index}
-            name={ProductName}
-            price={price}
-            removeProduct={() => removeProduct(index)}
-            handleChangeProductName={handleChangeProductName(index)}
-            handleChangeProductPrice={handleChangeProductPrice(index)}
+    <>
+      <View>
+        <View style={CategoryTop}>
+          <TextInput
+            value={CategoryName}
+            style={inputCategory}
+            onChangeText={handleChangeCategoryName}
+            placeholder="Category name"
           />
-          {products.length - 1 === index && (
-            <View style={AddCategoryContainer}>
-              <Button title="Add Product" onPress={addProduct} />
-            </View>
-          )}
+          <DeleteButton handlePress={removeCategory} />
         </View>
-      ))}
-    </View>
+        {products.map(({ id: pId }, pIndex) => (
+          <View key={pId || pIndex}>
+            <CreateProducts
+              id={pId || pIndex}
+              index={pIndex}
+              categoryIndex={index}
+            />
+          </View>
+        ))}
+      </View>
+      {values.categories.length - 1 === index && (
+        <View style={addCategoryButtonContainer}>
+          <Button title="Add Category" onPress={addCategory} />
+        </View>
+      )}
+    </>
   );
 };
 
