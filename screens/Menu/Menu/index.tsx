@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { IMenu } from '../types';
+import { IMenu } from '../../../common/interfaces';
 import Category from './Category';
 import styles from './styles';
 

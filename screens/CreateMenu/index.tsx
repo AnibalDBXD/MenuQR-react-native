@@ -22,7 +22,7 @@ import {
   RemoveCategory,
   RemoveProduct,
 } from './utils';
-import { IMenu } from '../Menu/types';
+import { IMenu } from '../../common/interfaces';
 
 import { createMenu } from '../../api';
 import { QRSize } from '../../common/styles';

@@ -1,4 +1,4 @@
-import { IMenu } from '../screens/Menu/types';
+import { IMenu } from '../common/interfaces';
 import { METHODS } from './constants';
 
 export interface IFetchParams {

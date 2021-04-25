@@ -1,5 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ICategory } from '../Menu/Menu/Category/types';
+import { ICategory } from '../../common/interfaces';
 import SCREENS from '../../navigation/constants';
 import { RootStackParamList } from '../../navigation/types';
 

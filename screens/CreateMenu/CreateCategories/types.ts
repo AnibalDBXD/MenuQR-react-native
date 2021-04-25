@@ -1,4 +1,4 @@
-import { IProduct } from '../../Menu/Menu/Category/types';
+import { IProduct } from '../../../common/interfaces';
 
 export type ICreateCategories = {
   name: string;

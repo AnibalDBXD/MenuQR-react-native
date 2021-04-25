@@ -1,4 +1,4 @@
-import { ICategory } from '../Menu/Menu/Category/types';
+import { ICategory } from '../../common/interfaces';
 import { DEFAULT_PRODUCT } from './const';
 import { ISetFunctionProp } from './types';
 

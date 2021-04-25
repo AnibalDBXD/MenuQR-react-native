@@ -1,3 +1,9 @@
+export type IMenu = {
+  MenuName: string;
+  Categories: ICategory[];
+  id?: number | string;
+};
+
 export type IProduct = {
   ProductName: string;
   price: string;

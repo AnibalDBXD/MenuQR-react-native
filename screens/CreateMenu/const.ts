@@ -1,4 +1,4 @@
-import { ICategory, IProduct } from '../Menu/Menu/Category/types';
+import { ICategory, IProduct } from '../../common/interfaces';
 import { IFormValues } from './types';
 
 export const DEFAULT_PRODUCT: IProduct = {

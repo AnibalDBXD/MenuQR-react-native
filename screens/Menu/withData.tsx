@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, View } from 'react-native';
-import { IMenu } from './types';
+import { IMenu } from '../../common/interfaces';
 import styles from './styles';
 
 // SCREENS

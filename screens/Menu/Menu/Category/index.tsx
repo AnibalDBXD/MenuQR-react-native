@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { ICategory } from './types';
+import { ICategory } from '../../../../common/interfaces';
 import styles from './styles';
 
 const Category: React.FC<ICategory> = ({
